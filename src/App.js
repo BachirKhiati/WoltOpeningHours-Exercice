@@ -1,66 +1,84 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {
-  Text,
   View,
   Dimensions,
-  StyleSheet,
+  TouchableOpacity,
   TouchableHighlight,
   StatusBar,
-  Image,
+  Text,
 } from 'react-native';
 import Animated, {interpolate} from 'react-native-reanimated';
-import {
-  bInterpolate,
-  bInterpolateColor,
-  useTransition,
-} from 'react-native-redash';
-
+import {bInterpolate, bInterpolateColor, useTransition} from 'react-native-redash';
 import Icon from 'react-native-vector-icons/dist/SimpleLineIcons';
 import I18n from 'react-native-i18n';
 
-
 import Chevron from './Components/Chevron';
-import Colors from './Styles/Colors';
-import styles from './Styles/AppStyles';
 import {Convert} from './Utils/Conversion';
 import Item from './Components/Items';
+import styles from './Styles/AppStyles';
+import Colors from './Styles/Colors';
 
-const {width: WIDTH, height: HEIGHT} = Dimensions.get('window');
+const {width: WIDTH} = Dimensions.get('window');
+//width when view minimized
 const MIN_WIDTH = WIDTH * 0.6;
+//width when view maximized
 const MAX_WIDTH = WIDTH * 0.8;
+//Top Interpolation value used when maximizing the view
 const TOP_INT = 2 / WIDTH;
+
+//initial btn/view  height- minimized
 const BTN_HEIGHT = 60;
+
+//List height when view is maximized
 const LIST_HEIGHT = WIDTH - BTN_HEIGHT;
 
+//loop  for switching language
+const LOOP_LANGUAGE = {
+  fi: 'en',
+  en: 'fi',
+};
+
+// to be able to transition the Icon(font) color between white to black.
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
-function App() {
+export default function App() {
+  //state
   const [showHours, setShowHours] = useState(false);
   const [list, setList] = useState([]);
+  const [language, setLanguage] = useState('en');
 
+  //main transition
   const mainTransition = useTransition(showHours);
 
-  const heightContainerInterpolate = bInterpolate(mainTransition, BTN_HEIGHT, WIDTH);
+  //interpolations all based on "showHours" value"
+  const heightContainerInterpolate = bInterpolate(mainTransition, BTN_HEIGHT, WIDTH,);
   const heightListInterPolate = bInterpolate(mainTransition, 0, LIST_HEIGHT);
   const heightListOpacity = bInterpolate(mainTransition, 0, 1);
   const widthInterpolate = bInterpolate(mainTransition, MIN_WIDTH, MAX_WIDTH);
-  const topInterpolate = interpolate(mainTransition, {inputRange: [0, TOP_INT], outputRange: [1, 0]});
-  const backgroundInterpolate = bInterpolateColor(mainTransition, Colors.green, Colors.white);
-  const textColorInterpolate = bInterpolateColor(mainTransition, Colors.white, Colors.black);
+  const topInterpolate = interpolate(mainTransition, {inputRange: [0, TOP_INT], outputRange: [1, 0],});
+  const backgroundInterpolate = bInterpolateColor(mainTransition, Colors.green, Colors.white,);
+  const textColorInterpolate = bInterpolateColor(mainTransition, Colors.white, Colors.black,
+  );
 
+  //fetch list
   useEffect(() => {
     setList(Convert());
   }, []);
 
-  function onPressShow() {
+  function onShowPressed() {
     setShowHours(!showHours);
+  }
+
+  function onLanguagePressed(){
+    I18n.locale = LOOP_LANGUAGE[language];
+    setLanguage(LOOP_LANGUAGE[language]);
   }
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={'transparent'} />
       <Animated.View style={{top: topInterpolate}}>
-        <TouchableHighlight style={styles.btnWrapper} onPress={onPressShow}>
+        <TouchableHighlight style={styles.btnWrapper} onPress={onShowPressed}>
           <Animated.View
             style={[
               styles.animationContainer,
@@ -102,7 +120,14 @@ function App() {
           </Animated.View>
         </TouchableHighlight>
       </Animated.View>
+
+      <TouchableOpacity
+        onPress={onLanguagePressed}
+        style={styles.btnFloating}>
+        <Text style={styles.textFloating} size={30} color="#01a699">
+          {LOOP_LANGUAGE[language]}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
-export default App;

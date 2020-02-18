@@ -1,5 +1,6 @@
 import Colors from './Colors';
 import {StyleSheet} from 'react-native';
+import {scaleFontSize} from '../Utils/FontScaling';
 
 export default StyleSheet.create({
   container: {
@@ -15,7 +16,7 @@ export default StyleSheet.create({
     paddingRight: 15,
     textTransform: 'capitalize',
     fontFamily: 'Roboto-Medium',
-    fontSize: 16,
+    fontSize: scaleFontSize(16),
   },
   isTodayText: {
     fontFamily: 'Roboto-Medium',
@@ -23,7 +24,9 @@ export default StyleSheet.create({
     color: Colors.green,
   },
   timeText: {
+    width: '50%',
     fontFamily: 'Roboto-Regular',
-    fontSize: 16,
+    textAlign: 'right',
+    fontSize: scaleFontSize(16),
   },
 });

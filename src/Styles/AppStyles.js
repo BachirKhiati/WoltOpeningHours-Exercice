@@ -48,4 +48,27 @@ export default StyleSheet.create({
     width: '90%',
     overflow: 'hidden',
   },
+  btnFloating: {
+    width: 40,
+    position: 'absolute',
+    bottom: 50,
+    left: 30,
+    height: 40,
+    backgroundColor: Colors.green,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 100,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 10,
+  },
+  textFloating: {
+    textTransform: 'uppercase',
+    color: Colors.white,
+  },
 });

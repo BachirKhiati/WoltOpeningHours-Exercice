@@ -8,13 +8,15 @@ export function Convert() {
   let currentDayOfWeek = new Date()
     .toLocaleDateString('en-US', {weekday: 'long'})
     .toLowerCase(); // fetch current day as a string. compare it later with json input day.
+  let openTimeValue = '';
 
   /**
    * key: days of the week
    * array: entries for each day
    */
   for (const [day, array] of Object.entries(Json)) {
-    let openTime = ''; // String represent the opening hours per day.
+    let openTimeArray = []; // String represent the opening hours per day.
+    let closeTimeValue = '';
     let length = array.length; // represent how many entries we have each day
     if (length === 0) {
       newDatesFormatArray.push({
@@ -26,31 +28,37 @@ export function Convert() {
       continue;
     }
     updatePrevious = isOpen; //  Check if store is still open in the beginning of each day;
+
     for (const [index, obj] of array.entries()) {
-      isOpen = obj.type === 'open'; //
+      isOpen = obj.type === 'open';
       if (updatePrevious && !isOpen) {
         updatePrevious = false;
-        newDatesFormatArray[newDatesFormatArray.length - 1].time += sec2time(
-          obj.value,
-        ); // update the last entry with the closing time.
+        closeTimeValue = sec2time(obj.value); // update the last entry with the closing time.
+        newDatesFormatArray[newDatesFormatArray.length - 1].time = [{open: openTimeValue, close: closeTimeValue}];
+        openTimeArray.length = 0;
         continue;
       }
-
       // endLoop: serves as condition for adding commas between
       // the group of |open-close| entries until we reach the last entry.
-      const endLoop = length - 1 === index;
-
+      // const endLoop = length - 1 === index;
+      if (isOpen) {
+        openTimeValue = sec2time(obj.value);
+      } else {
+        closeTimeValue = sec2time(obj.value);
+        openTimeArray.push({open: openTimeValue, close: closeTimeValue});
+        // openTimeObject.length = 0;
+      }
       // openTime: Final string is generated using addition assignment to link between entries.
-      openTime += `${sec2time(obj.value)}${
-        isOpen ? ' - ' : !endLoop ? ', ' : ''
-      }`;
+      // openTime += `${sec2time(obj.value)}${
+      //   isOpen ? ' - ' : !endLoop ? ', ' : ''
+      // }`;
     }
     // final object contains outputs for each day.
     newDatesFormatArray.push({
       date: day,
       isClosed: false,
       isToday: currentDayOfWeek === day,
-      time: openTime,
+      time: openTimeArray,
     });
   }
   // let t1 = performance.now();

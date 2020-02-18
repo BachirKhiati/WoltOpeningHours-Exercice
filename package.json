@@ -3,9 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
+    "ar": "watchman watch-del-all && yarn cache clean --force && react-native run-android --variant=Release",
+    "ad": "watchman watch-del-all && yarn cache clean --force && react-native run-android --variant=Debug",
+    "id": "watchman watch-del-all && yarn cache clean --force && react-native run-ios --configuration=Debug",
+    "ir": "watchman watch-del-all && yarn cache clean --force && react-native run-ios --configuration=Release",
+    "start": "react-native start -- --reset-cache",
     "test": "jest",
     "lint": "eslint woltopeninghours"
   },

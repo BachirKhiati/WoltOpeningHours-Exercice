@@ -5,7 +5,8 @@
     { "type": "close", "value": 64800 }
   ],
   "wednesday": [
-
+    { "type": "open", "value": 10 },
+    { "type": "close", "value": 64800 }
   ],
   "thursday": [
     { "type": "open", "value": 36000 },

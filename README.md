@@ -143,6 +143,8 @@ Running the application
             
         * IOS
         
+           Pods: are linked and included in the repo, no installation needed.
+
            Debug : yarn id
            
              "id": "watchman watch-del-all && yarn cache clean --force && react-native run-ios --configuration=Debug",
@@ -150,7 +152,7 @@ Running the application
             Release : yarn ir
             
              "ir": "watchman watch-del-all && yarn cache clean --force && react-native run-ios --configuration=Release",
-		
+		s
 		    Note: 
 		        
 		        Current react-native 0.61.5 uses iPhone 11 simulator, will fail if not found. launch it from Xcode or

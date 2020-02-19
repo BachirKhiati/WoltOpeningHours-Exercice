@@ -128,7 +128,15 @@ Running the application
 
 
 2. We have 2 releases for each platform:
+
+
+        MAC OS: 
         
+        * requirements:
+
+            "watchman"
+            
+
         * Android:
         
             Debug : yarn ad

@@ -25,6 +25,15 @@ Write a program that takes a Json as input and display the details formatted on 
 
 
 ## Application Details
+
+
+    - Quick fix:
+
+        * I was using new Date().toLocaleDateString to get currect day of the week directly.
+        It does work on debug mode since it's available in Chrome v8 Engine but it's not availble yet
+        in JavascriptCore engine.
+
+---
   
     - Implemented and configured Multi-Language support.
         * English

@@ -1,4 +1,5 @@
 import Json from './Input';
+import {dayOfWeekAsString} from './Constants';
 
 //pass a json or read the default imported;
 // using a different input for the test.
@@ -6,9 +7,15 @@ export function Convert(input) {
   let newDatesFormatArray = []; // Will contain our new converted output.
   let isOpen = false; // Check if the store is still open at the end of the day - Between days.
   let updatePrevious = false; // serves to update previous day with the "closing" entry.
-  let currentDayOfWeek = new Date()
-    .toLocaleDateString('en-US', {weekday: 'long'})
-    .toLowerCase(); // fetch current day as a string. compare it later with json input day.
+
+
+  // Quick Fix:  Work only in debug mode- part of Chrome V8 engine
+  // get current day of the week directly
+  // let currentDayOfWeek = new Date()
+  //   .toLocaleDateString('en-US', {weekday: 'long'})
+  //   .toLowerCase(); // 
+  //fetch current day as a string. compare it later with json input day.
+  let currentDayOfWeek = dayOfWeekAsString(new Date().getDay());
   let openTimeValue = {}; // Used in the open/close entries.
   let closeTimeValue = {}; // We need this value outside the days loop in case the store is still open over then ext day
   /**

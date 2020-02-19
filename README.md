@@ -30,11 +30,11 @@ Write a program that takes a Json as input and display the details formatted on 
         * English
         * Finnish
         
-    - Used 3rd party librarie to handle the animations.
+    - Used 3rd party libraries to handle the animations.
     
     - Implemented Fastlane for build and store delivery.
     
-    - Impmlemented Splash screen for both native platform and updated the icons.
+    - Implemented Splash screen for both native platform and updated the icons.
     
         * in android, I linked my own native library directly to the project. check it.
         
@@ -48,9 +48,11 @@ Write a program that takes a Json as input and display the details formatted on 
     
     - Added some simple scaling functions to handle multiple screen sizes.
     
-    - Flexible Card item list, can hadle many entires per day. For an actual store, 3 entry should be max.
+    - Flexible Card item list, can handle many entires per day. For an actual store, 3 entry should be max.
     
-    - Render and Convert funciton Test.
+    - Render and Convert function Test.
+    
+    - Only portrait mode allowed for this exercise. Configured natively.
     
     - Designed so that the start/closing time, starts and ends on the same line, more visually pleasing.
     
@@ -97,8 +99,8 @@ Write a program that takes a Json as input and display the details formatted on 
        
 ##Json Output Formatting Logic
     
-        - We iterate throught the json's Days.
-        - On Each day we take the the openning and closing time and convert it to 12-h convention.
+        - We iterate through the json's Days.
+        - On Each day we take the the opening and closing time and convert it to 12-h convention.
         - if the last entry for that day was a closing time:
              * isOpen is set to false
              * we push an object containing the opening/closing time. 
@@ -107,12 +109,12 @@ Write a program that takes a Json as input and display the details formatted on 
               * isOpen is set to true;
               * we push an object containing the opening time only. 
               * We iterate to the next day
-              * we check that the next day first value is a closing enrty.
-              * take it and update the object in the previous eteration. 
+              * we check that the next day first value is a closing entry.
+              * take it and update the object in the previous iteration. 
               * set updatePrevious to false,
-              * End the etration and let it continue to the next one.
+              * End the iteration and let it continue to the next one.
               
-        - average execution time was around 0.27 milliseconds
+        - average execution for time the current json file in .src/utils/input was around 0.27 milliseconds
     
     
 Running the application

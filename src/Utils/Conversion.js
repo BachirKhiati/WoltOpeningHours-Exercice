@@ -72,7 +72,9 @@ export function Convert(input) {
  * @param timeInSeconds
  * @returns {object}
  */
-function sec2time(timeInSeconds) {
+function sec2time( Seconds ) {
+  let parsedValue = parseFloat(Seconds)
+  timeInSeconds = parsedValue >= 86399 ? 0 : parsedValue; // limit check - count 11.59:59 as midnight next day ;
   let time = parseFloat(timeInSeconds);
   let hour = Math.floor(time / 60 / 60);
   let convention = hour >= 12 ? 'PM' : 'AM';

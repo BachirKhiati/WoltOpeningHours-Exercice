@@ -15,7 +15,7 @@
     { "type": "open", "value": 30000 },
     { "type": "close", "value": 43800 },
     { "type": "open", "value": 66000 },
-    { "type": "close", "value": 84800 }
+    { "type": "close", "value": 86399 }
   ],
   "friday": [{ "type": "open", "value": 36000 }],
   "saturday": [

@@ -136,6 +136,10 @@ Running the application
             Release : yarn ar
             
             "ar": "watchman watch-del-all && yarn cache clean --force && react-native run-android --variant=Release",
+
+            Note: 
+		        
+		        You may need to have the Android Emulator open or a device connected  before you launch the compilation - React-native Bug.
             
         * IOS
         

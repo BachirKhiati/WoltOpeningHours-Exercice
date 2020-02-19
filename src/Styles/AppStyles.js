@@ -1,12 +1,13 @@
 import Colors from './Colors';
 import {StyleSheet} from 'react-native';
-import {scaleFontSize} from '../Utils/FontScaling';
+import {scaleFontSize, normalizeHeight} from '../Utils/Scaling';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: Colors.white,
   },
   btnWrapper: {
     flexDirection: 'row',
@@ -32,18 +33,18 @@ export default StyleSheet.create({
     flexDirection: 'row',
     height: 60,
     width: '95%',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
   visibleViewText: {
+    color: Colors.white,
     fontFamily: 'Roboto-Bold',
     fontSize: scaleFontSize(24),
   },
   minimizedView: {
-    marginTop: 10,
     borderTopColor: Colors.black,
     borderTopWidth: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
     width: '90%',
     overflow: 'hidden',
@@ -51,7 +52,7 @@ export default StyleSheet.create({
   btnFloating: {
     width: 40,
     position: 'absolute',
-    bottom: 50,
+    bottom: normalizeHeight(50),
     left: 30,
     height: 40,
     backgroundColor: Colors.green,

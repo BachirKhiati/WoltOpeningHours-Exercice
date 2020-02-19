@@ -1,0 +1,75 @@
+# Customise this file, documentation can be found here:
+# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
+# All available actions: https://docs.fastlane.tools/actions
+# can also be listed using the `fastlane actions` command
+
+# Change the syntax highlighting to Ruby
+# All lines starting with a # are ignored when running `fastlane`
+
+# If you want to automatically update fastlane if a new version is available:
+# update_fastlane
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+fastlane_version "2.135.0"
+
+require 'googleauth'
+require 'google/apis/androidpublisher_v3'
+
+json_key_file = "./key.json" # Path to the json secret file - Follow https://github.com/fastlane/supply#setup to get one
+package_name = CredentialsManager::AppfileConfig.try_fetch_value(:package_name)
+
+Androidpublisher = Google::Apis::AndroidpublisherV3
+CredentialsLoader = Google::Auth::CredentialsLoader
+
+scope = Androidpublisher::AUTH_ANDROIDPUBLISHER
+service_account_json = File.open(File.expand_path(json_key_file))
+auth_client = Google::Auth::ServiceAccountCredentials.make_creds(json_key_io: service_account_json, scope: scope)
+auth_client.fetch_access_token!
+
+android_publisher = Androidpublisher::AndroidPublisherService.new
+android_publisher.authorization = auth_client
+
+default_platform :android
+
+platform :android do
+  desc "Runs all the tests"
+  lane :testbuild do
+    gradle(task: "assembleRelease")
+  end
+  lane :increment_version_api do
+  # create an edit object
+    current_edit = android_publisher.insert_edit(package_name)
+    result = android_publisher.list_edit_apks(package_name, current_edit.id).apks.last
+    ENV['Build_NextBuildNumber'] = String(result.version_code+1)
+    increment_version_code(version_code: result.version_code+1)
+  end
+
+  desc "Submit a new Beta Build to Crashlytics Beta"
+  lane :dev do
+    gradle(
+      task: "assemble",
+      build_type: "Debug"
+          )
+    supply(
+      track: "alpha",
+      apk: "./app/build/outputs/apk/dev/releaseStaging/app-dev-releaseStaging.apk"
+    )
+  end
+
+  desc "Submit a new Beta Build to Crashlytics Beta"
+  lane :prod do
+    gradle(
+      task: "assemble",
+      build_type: "Release"
+    )
+#    supply(
+#      track: "alpha",
+#      metadata_path: "./fastlane/metadata_prod/android",
+#      package_name: "com.woltopeninghours",
+#      apk: "./app/build/outputs/apk/prod/releaseProduction/app-prod-releaseProduction.apk"
+#    )
+  end
+
+
+end

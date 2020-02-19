@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View} from 'react-native';
 import I18n from 'react-native-i18n';
 
 import styles from './../Styles/ItemStyles';
@@ -9,31 +9,35 @@ export default function Item({item}) {
   const {date, time, isToday, isClosed} = item;
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
+      <View style={styles.dateTextView}>
         <Text style={styles.dateText}>{I18n.t(date)}</Text>
         {isToday && <Text style={styles.isTodayText}>{I18n.t('today')}</Text>}
       </View>
-      <Text
-        style={[
-          styles.timeText,
-          {color: item.isClosed ? Colors.gray3 : Colors.black},
-        ]}>
-        {isClosed
-          ? I18n.t(time)
-          : time &&
-            time.length > 0 &&
-            time.map((text, key) => [
-              key > 0 && ', ',
-              <Text key={key}>
-                {text.open} - {text.close}
-              </Text>,
-            ])}
-      </Text>
+      <View style={styles.timeTextWrapper}>
+        {isClosed ? (
+          <Text
+            style={[
+              styles.timeText,
+              {color: isClosed ? Colors.gray3 : Colors.black},
+            ]}>
+            {I18n.t(time)}
+          </Text>
+        ) : (
+          time &&
+          time.length > 0 &&
+          time.map((text, key) => (
+            <View style={styles.timeTextView} key={key}>
+              <Text>
+                {text.open.hour} {text.open.convention}
+              </Text>
+              <Text>{' - '}</Text>
+              <Text>
+                {text.close.hour} {text.close.convention}
+              </Text>
+            </View>
+          ))
+        )}
+      </View>
     </View>
   );
 }

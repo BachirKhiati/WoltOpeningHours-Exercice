@@ -7,7 +7,7 @@
     "ad": "watchman watch-del-all && yarn cache clean --force && react-native run-android --variant=Debug",
     "id": "watchman watch-del-all && yarn cache clean --force && react-native run-ios --configuration=Debug",
     "ir": "watchman watch-del-all && yarn cache clean --force && react-native run-ios --configuration=Release",
-    "start": "react-native start -- --reset-cache",
+    "start": "watchman watch-del-all && react-native start -- --reset-cache",
     "test": "jest",
     "lint": "eslint woltopeninghours"
   },
@@ -31,6 +31,8 @@
     "react-test-renderer": "16.9.0"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "verbose": true,
+    "setupFiles": ["./node_modules/react-native-gesture-handler/jestSetup.js"]
   }
 }

@@ -1,0 +1,28 @@
+fastlane_version "2.26.1"
+
+default_platform :ios
+
+platform :ios do
+
+  before_all do
+    setup_circle_ci
+  end
+
+
+  desc "Submit a new Beta Build to Apple TestFlight"
+  desc "This will also make sure the profile is up to date"
+  lane :dev do
+    changelog = File.read("../../changelog.txt")
+
+    gym(configuration: "Debug", workspace: "woltopeninghours.xcworkspace")
+#    pilot(changelog: changelog, skip_waiting_for_build_processing: true)
+  end
+
+  desc "Submit a new Production Build to Apple TestFlight"
+  desc "This will also make sure the profile is up to date"
+  lane :prod do
+    changelog = File.read("../../changelog.txt")
+    gym(configuration: "Release", workspace: "woltopeninghours.xcworkspace")
+#    pilot(app_identifier: "com.firenoid.workspace: "woltopeninghours.xcworkspace")", changelog: changelog, skip_waiting_for_build_processing: true)
+  end
+end

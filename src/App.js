@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Dimensions,
@@ -6,9 +6,14 @@ import {
   TouchableHighlight,
   StatusBar,
   Text,
+  ActivityIndicator,
 } from 'react-native';
-import Animated, {interpolate} from 'react-native-reanimated';
-import {bInterpolate, bInterpolateColor, useTransition} from 'react-native-redash';
+import Animated from 'react-native-reanimated';
+import {
+  bInterpolate,
+  bInterpolateColor,
+  useTransition,
+} from 'react-native-redash';
 import Icon from 'react-native-vector-icons/dist/SimpleLineIcons';
 import I18n from 'react-native-i18n';
 
@@ -41,7 +46,7 @@ const LOOP_LANGUAGE = {
 // to be able to transition the Icon(font) color between white to black.
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
-export default function App() {
+function App() {
   //state
   const [showHours, setShowHours] = useState(false);
   const [list, setList] = useState([]);
@@ -51,13 +56,28 @@ export default function App() {
   const mainTransition = useTransition(showHours);
 
   //interpolations all based on "showHours" value"
-  const heightContainerInterpolate = bInterpolate(mainTransition, BTN_HEIGHT, WIDTH,);
+  // Visual Effects
+  const heightContainerInterpolate = bInterpolate(
+    mainTransition,
+    BTN_HEIGHT,
+    WIDTH,
+  );
   const heightListInterPolate = bInterpolate(mainTransition, 0, LIST_HEIGHT);
   const heightListOpacity = bInterpolate(mainTransition, 0, 1);
   const widthInterpolate = bInterpolate(mainTransition, MIN_WIDTH, MAX_WIDTH);
-  const topInterpolate = interpolate(mainTransition, {inputRange: [0, TOP_INT], outputRange: [1, 0],});
-  const backgroundInterpolate = bInterpolateColor(mainTransition, Colors.green, Colors.white,);
-  const textColorInterpolate = bInterpolateColor(mainTransition, Colors.white, Colors.black,
+  const topInterpolate = Animated.interpolate(mainTransition, {
+    inputRange: [0, TOP_INT],
+    outputRange: [1, 0],
+  });
+  const backgroundInterpolate = bInterpolateColor(
+    mainTransition,
+    Colors.green,
+    Colors.white,
+  );
+  const textColorInterpolate = bInterpolateColor(
+    mainTransition,
+    Colors.white,
+    Colors.black,
   );
 
   //fetch list
@@ -69,9 +89,17 @@ export default function App() {
     setShowHours(!showHours);
   }
 
-  function onLanguagePressed(){
+  function onLanguagePressed() {
     I18n.locale = LOOP_LANGUAGE[language];
     setLanguage(LOOP_LANGUAGE[language]);
+  }
+
+  if (list.length === 0) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size={'large'} color={Colors.green} />
+      </View>
+    );
   }
 
   return (
@@ -120,10 +148,7 @@ export default function App() {
           </Animated.View>
         </TouchableHighlight>
       </Animated.View>
-
-      <TouchableOpacity
-        onPress={onLanguagePressed}
-        style={styles.btnFloating}>
+      <TouchableOpacity onPress={onLanguagePressed} style={styles.btnFloating}>
         <Text style={styles.textFloating} size={30} color="#01a699">
           {LOOP_LANGUAGE[language]}
         </Text>
@@ -131,3 +156,5 @@ export default function App() {
     </View>
   );
 }
+
+export default App;

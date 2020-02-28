@@ -1,38 +1,55 @@
 {
-  "name": "woltopeninghours",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "ar": "watchman watch-del-all && yarn cache clean --force && react-native run-android --variant=Release",
-    "ad": "watchman watch-del-all && yarn cache clean --force && react-native run-android --variant=Debug",
-    "id": "watchman watch-del-all && yarn cache clean --force && react-native run-ios --configuration=Debug",
-    "ir": "watchman watch-del-all && yarn cache clean --force && react-native run-ios --configuration=Release",
-    "start": "watchman watch-del-all && react-native start -- --reset-cache",
-    "test": "jest",
-    "lint": "eslint woltopeninghours"
-  },
-  "dependencies": {
-    "react": "16.9.0",
-    "react-native": "0.61.5",
-    "react-native-gesture-handler": "^1.6.0",
-    "react-native-i18n": "git+https://8b49152fce04fec7b5535756ddccc3e9e74d4283:x-oauth-basic@github.com/BachirKhiati/react-native-i18n",
-    "react-native-reanimated": "^1.7.0",
-    "react-native-redash": "^9.6.0",
-    "react-native-vector-icons": "^6.6.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/runtime": "^7.6.2",
-    "@react-native-community/eslint-config": "^0.0.5",
-    "babel-jest": "^24.9.0",
-    "eslint": "^6.5.1",
-    "jest": "^24.9.0",
-    "metro-react-native-babel-preset": "^0.56.0",
-    "react-test-renderer": "16.9.0"
-  },
-  "jest": {
-    "preset": "react-native",
-    "verbose": true,
-    "setupFiles": ["./node_modules/react-native-gesture-handler/jestSetup.js"]
-  }
+    "name": "woltopeninghours",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "ar": "watchman watch-del-all && yarn cache clean --force && react-native run-android --variant=Release",
+        "ad": "watchman watch-del-all && yarn cache clean --force && react-native run-android --variant=Debug",
+        "id": "watchman watch-del-all && yarn cache clean --force && react-native run-ios --configuration=Debug",
+        "ir": "watchman watch-del-all && yarn cache clean --force && react-native run-ios --configuration=Release",
+        "start": "watchman watch-del-all && react-native start -- --reset-cache",
+        "test": "jest",
+        "prettier": "npx prettier --write **/*.{js,jsx,ts,tsx,json} && npx prettier --write *.{js,jsx,ts,tsx,json}",
+        "lint": "tsc --noEmit && eslint --ext .js,.jsx,.ts,.tsx ./"
+    },
+    "dependencies": {
+        "@typescript-eslint/eslint-plugin": "^2.21.0",
+        "react": "16.9.0",
+        "react-native": "0.61.5",
+        "react-native-gesture-handler": "^1.6.0",
+        "react-native-i18n": "git+https://8b49152fce04fec7b5535756ddccc3e9e74d4283:x-oauth-basic@github.com/BachirKhiati/react-native-i18n",
+        "react-native-reanimated": "^1.7.0",
+        "react-native-redash": "^9.6.0",
+        "react-native-vector-icons": "^6.6.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.6.2",
+        "@babel/runtime": "^7.6.2",
+        "@react-native-community/eslint-config": "^0.0.7",
+        "@types/react": "^16.9.23",
+        "@types/react-native": "^0.61.17",
+        "@types/react-native-vector-icons": "^6.4.5",
+        "@typescript-eslint/parser": "^2.21.0",
+        "babel-jest": "^24.9.0",
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb-typescript": "^7.0.0",
+        "eslint-config-prettier": "^6.10.0",
+        "eslint-plugin-import": "^2.20.1",
+        "eslint-plugin-jsx-a11y": "^6.2.3",
+        "eslint-plugin-prettier": "^3.1.2",
+        "eslint-plugin-react": "^7.18.3",
+        "jest": "^24.9.0",
+        "metro-react-native-babel-preset": "^0.56.0",
+        "prettier": "^1.19.1",
+        "react-native-typescript-transformer": "^1.2.13",
+        "react-test-renderer": "16.9.0",
+        "typescript": "^3.8.2"
+    },
+    "jest": {
+        "preset": "react-native",
+        "verbose": true,
+        "setupFiles": [
+            "./node_modules/react-native-gesture-handler/jestSetup.js"
+        ]
+    }
 }

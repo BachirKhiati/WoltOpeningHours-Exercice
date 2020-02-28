@@ -1,3 +1,3 @@
 export default {
-  t: jest.fn()
-}
+    t: jest.fn()
+};

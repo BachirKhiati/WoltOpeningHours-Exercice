@@ -4,7 +4,7 @@ import I18n from 'react-native-i18n';
 
 import styles from '../Styles/ItemStyles';
 import Colors from '../Styles/Colors';
-import { NewDatesObjectType, EachDayEntryType } from '../Utils/Conversion';
+import { NewDatesObjectType } from '../Utils/Conversion';
 
 interface ItemsProps {
     item: NewDatesObjectType;
@@ -21,34 +21,28 @@ export default function Item({ item }: ItemsProps) {
                 )}
             </View>
             <View style={styles.timeTextWrapper}>
-                {isClosed ? (
+                {isClosed || !Array.isArray(time) ? (
                     <Text
                         style={[
                             styles.timeText,
                             { color: isClosed ? Colors.gray3 : Colors.black }
                         ]}
                     >
-                        {I18n.t(time as string)}
+                        {I18n.t('closed')}
                     </Text>
                 ) : (
-                    time &&
-                    time.length > 0 &&
-                    (time as Array<EachDayEntryType>).map(
-                        ({ open, close }, key) => (
-                            <View
-                                style={styles.timeTextView}
-                                key={`Items${key}`}
-                            >
-                                <Text>
-                                    {open.hour} {open.convention}
-                                </Text>
-                                <Text>{' - '}</Text>
-                                <Text>
-                                    {close.hour} {close.convention}
-                                </Text>
-                            </View>
-                        )
-                    )
+                    Array.isArray(time) &&
+                    time.map(({ open, close }, key) => (
+                        <View style={styles.timeTextView} key={`Items${key}`}>
+                            <Text>
+                                {open.hour} {open.period}
+                            </Text>
+                            <Text>{' - '}</Text>
+                            <Text>
+                                {close.hour} {close.period}
+                            </Text>
+                        </View>
+                    ))
                 )}
             </View>
         </View>

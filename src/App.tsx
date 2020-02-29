@@ -22,6 +22,7 @@ import { Convert, NewDatesObjectType } from './Utils/Conversion';
 import Item from './Components/Items';
 import styles from './Styles/AppStyles';
 import Colors from './Styles/Colors';
+import {INITIAL_LANG} from "./I18n/I18n";
 
 const { width: WIDTH } = Dimensions.get('window');
 // width when view minimized
@@ -49,11 +50,11 @@ const LOOP_LANGUAGE: LanguageTypes = {
 // to be able to transition the Icon(font) color between white to black.
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
-function App() {
+function App(): JSX.Element {
     // state
     const [showHours, setShowHours] = useState(false);
     const [list, setList] = useState<Array<NewDatesObjectType>>([]);
-    const [language, setLanguage] = useState('en');
+    const [language, setLanguage] = useState(INITIAL_LANG);
 
     // main transition
     const mainTransition = useTransition(showHours);
@@ -88,11 +89,11 @@ function App() {
         setList(Convert());
     }, []);
 
-    function onShowPressed() {
+    function onShowPressed(): void {
         setShowHours(!showHours);
     }
 
-    function onLanguagePressed() {
+    function onLanguagePressed(): void {
         I18n.locale = LOOP_LANGUAGE[language];
         setLanguage(LOOP_LANGUAGE[language]);
     }

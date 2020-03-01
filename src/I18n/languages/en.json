@@ -1,13 +1,13 @@
 {
-  "app_name":                  "Wolt",
-  "monday":                "Monday",
-  "tuesday":               "Tuesday",
-  "wednesday":             "Wednesday",
-  "thursday":              "Thursday",
-  "friday":                "Friday",
-  "saturday":              "Saturday",
-  "sunday":                "Sunday",
-  "today":                  "Today",
-  "closed":                 "Closed",
-  "opening_hours":          "Opening Hours"
+    "app_name": "Wolt",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "today": "Today",
+    "closed": "Closed",
+    "opening_hours": "Opening Hours"
 }

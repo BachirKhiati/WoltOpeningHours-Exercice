@@ -4,7 +4,7 @@
  * @param {Number} dayIndex
  * @return {String} Returns day as string
  */
-export function dayOfWeekAsString(dayIndex: number) {
+export function dayOfWeekAsString(dayIndex: number): string {
     return [
         'sunday',
         'monday',

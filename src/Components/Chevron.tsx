@@ -20,7 +20,7 @@ interface TransitionProps {
     transition: Animated.Node<number>;
 }
 
-export default ({ transition }: TransitionProps) => {
+export default ({ transition }: TransitionProps): JSX.Element => {
     const rotateZ = bInterpolate(transition, 0, Math.PI / 2);
     const tintColor = bInterpolateColor(transition, Colors.white, Colors.black);
     return (

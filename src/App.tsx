@@ -23,6 +23,7 @@ import Item from './Components/Items';
 import styles from './Styles/AppStyles';
 import Colors from './Styles/Colors';
 import { INITIAL_LANG } from './I18n/I18n';
+import { jsonInput } from './Utils/Input';
 
 const { width: WIDTH } = Dimensions.get('window');
 // width when view minimized
@@ -86,7 +87,7 @@ function App(): JSX.Element {
 
     // fetch list
     useEffect(() => {
-        setList(Convert());
+        setList(Convert(jsonInput));
     }, []);
 
     function onShowPressed(): void {

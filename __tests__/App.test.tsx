@@ -2,7 +2,7 @@ import { Text } from 'react-native';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, cleanup } from '@testing-library/react-native';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import App from '../src/App';
 import Item from '../src/Components/Items';

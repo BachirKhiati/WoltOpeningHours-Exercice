@@ -1,13 +1,6 @@
 module.exports = {
     roots: ['<rootDir>'],
     preset: 'react-native',
-    // transform: {
-    //     '^.+\\.tsx?$': 'ts-jest'
-    // },
-    // transform: {
-    //     '^.+\\.(js)$': '<rootDir>/node_modules/babel-jest',
-    //     '\\.(ts|tsx)$': '<rootDir>/node_modules/ts-jest/preprocessor.js'
-    // },
     globals: {
         'ts-jest': {
             babelConfig: true

@@ -7,7 +7,7 @@
 
 module.exports = {
     transformer: {
-        getTransformOptions: async () => ({
+        getTransformOptions: async (): any => ({
             transform: {
                 experimentalImportSupport: false,
                 inlineRequires: false

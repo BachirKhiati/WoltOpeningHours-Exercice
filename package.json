@@ -9,16 +9,21 @@
         "ir": "watchman watch-del-all && yarn cache clean --force && react-native run-ios --configuration=Release",
         "start": "watchman watch-del-all && react-native start -- --reset-cache",
         "test": "jest",
-        "prettier": "npx prettier --write **/*.{js,jsx,ts,tsx,json} && npx prettier --write *.{js,jsx,ts,tsx,json}",
+        "prettier": "npx prettier --write {src,__tests__,__mocks__}/**/*.{js,jsx,ts,tsx,json}",
         "lint": "tsc --noEmit && eslint --ext .js,.jsx,.ts,.tsx ./"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "yarn prettier && yarn lint && yarn test"
+        }
     },
     "dependencies": {
         "@typescript-eslint/eslint-plugin": "^2.21.0",
         "react": "16.9.0",
         "react-native": "0.61.5",
-        "react-native-gesture-handler": "^1.6.0",
+        "react-native-gesture-handler": "git://github.com/tobiasbu/react-native-gesture-handler.git#fix/gesture-handler-root-view-ts",
         "react-native-i18n": "git+https://8b49152fce04fec7b5535756ddccc3e9e74d4283:x-oauth-basic@github.com/BachirKhiati/react-native-i18n",
-        "react-native-reanimated": "^1.7.0",
+        "react-native-reanimated": "git+https://github.com/software-mansion/react-native-reanimated.git",
         "react-native-redash": "^9.6.0",
         "react-native-vector-icons": "^6.6.0"
     },
@@ -50,6 +55,7 @@
         "eslint-plugin-jsx-a11y": "^6.2.3",
         "eslint-plugin-prettier": "^3.1.2",
         "eslint-plugin-react": "^7.18.3",
+        "husky": "^4.2.3",
         "jest": "^25.1.0",
         "jest-enzyme": "^7.1.2",
         "jsdom": "^16.2.0",

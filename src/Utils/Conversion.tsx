@@ -1,4 +1,5 @@
 import { dayOfWeekAsString } from './Constants';
+import { JsonType } from './Input';
 
 interface EachDayEntriesType {
     type: string;
@@ -22,6 +23,21 @@ export interface NewDatesObjectType {
     isToday: boolean;
     time: Array<EachDayEntryType>;
     isClosed: boolean;
+}
+
+export interface InputObjectType {
+    open: string;
+    close: string;
+}
+
+export interface InputArrayType {
+    day: string;
+    entriesArray: Array<InputObjectType>;
+}
+
+export interface InputJsonType {
+    day: string;
+    entriesArray: Array<InputObjectType>;
 }
 
 /**
@@ -62,8 +78,8 @@ function initEachDayEntry(): EachDayEntryType {
 
 // pass a json or read the default imported;
 // using a different input for the test.
-export function Convert(input?: object): Array<NewDatesObjectType> {
-    const json = Object.entries(input || require('../Utils/Input.json'));
+export function Convert(input: JsonType): Array<NewDatesObjectType> {
+    const json = Object.entries(input);
     // final output
     let result: Array<NewDatesObjectType> = [];
 
@@ -82,7 +98,7 @@ export function Convert(input?: object): Array<NewDatesObjectType> {
     let isStillOpen = false;
 
     // iterate days
-    json.forEach(([day, entriesArray], dayIndex: number) => {
+    json.forEach(([day, entriesArray]: any, dayIndex: number) => {
         // check in case array is invalid or empty
         if (!Array.isArray(entriesArray) || !entriesArray.length) {
             day &&

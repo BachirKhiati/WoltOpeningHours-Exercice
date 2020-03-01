@@ -1,5 +1,5 @@
 {
-    "monday": [{ "type": "close", "value": 5000 }],
+    "monday": [{ "type": "close", "value": 8000 }],
     "tuesday": [
         { "type": "open", "value": 36000 },
         { "type": "close", "value": 50800 }

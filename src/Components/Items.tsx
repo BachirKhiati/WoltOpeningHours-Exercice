@@ -10,12 +10,14 @@ interface ItemsProps {
     item: NewDatesObjectType;
 }
 
-export default function Item({ item }: ItemsProps) {
+export default function Item({ item }: ItemsProps): JSX.Element {
     const { date, time, isToday, isClosed } = item;
     return (
-        <View style={styles.container}>
+        <View testID="list-item" style={styles.container}>
             <View style={styles.dateTextView}>
-                <Text style={styles.dateText}>{I18n.t(date)}</Text>
+                <Text testID="today" style={styles.dateText}>
+                    {I18n.t(date)}
+                </Text>
                 {isToday && (
                     <Text style={styles.isTodayText}>{I18n.t('today')}</Text>
                 )}
@@ -23,6 +25,7 @@ export default function Item({ item }: ItemsProps) {
             <View style={styles.timeTextWrapper}>
                 {isClosed || !Array.isArray(time) ? (
                     <Text
+                        testID="closed-text"
                         style={[
                             styles.timeText,
                             { color: isClosed ? Colors.gray3 : Colors.black }
@@ -34,7 +37,7 @@ export default function Item({ item }: ItemsProps) {
                     Array.isArray(time) &&
                     time.map(({ open, close }, key) => (
                         <View style={styles.timeTextView} key={`Items${key}`}>
-                            <Text>
+                            <Text testID="open.hour">
                                 {open.hour} {open.period}
                             </Text>
                             <Text>{' - '}</Text>

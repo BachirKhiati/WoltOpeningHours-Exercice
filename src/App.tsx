@@ -22,7 +22,7 @@ import { Convert, NewDatesObjectType } from './Utils/Conversion';
 import Item from './Components/Items';
 import styles from './Styles/AppStyles';
 import Colors from './Styles/Colors';
-import {INITIAL_LANG} from "./I18n/I18n";
+import { INITIAL_LANG } from './I18n/I18n';
 
 const { width: WIDTH } = Dimensions.get('window');
 // width when view minimized
@@ -100,21 +100,23 @@ function App(): JSX.Element {
 
     if (list.length === 0) {
         return (
-            <View style={styles.container}>
+            <View testID="ActivityIndicator" style={styles.container}>
                 <ActivityIndicator size="large" color={Colors.green} />
             </View>
         );
     }
 
     return (
-        <View style={styles.container}>
+        <View testID="card-view" style={styles.container}>
             <StatusBar backgroundColor="transparent" barStyle="dark-content" />
             <Animated.View style={{ top: topInterpolate }}>
                 <TouchableHighlight
+                    testID="button"
                     style={styles.btnWrapper}
                     onPress={onShowPressed}
                 >
                     <Animated.View
+                        testID="animated-view"
                         style={[
                             styles.animationContainer,
                             {
@@ -143,6 +145,7 @@ function App(): JSX.Element {
                             <Chevron transition={mainTransition} />
                         </View>
                         <Animated.View
+                            testID="view-item"
                             style={[
                                 styles.minimizedView,
                                 {

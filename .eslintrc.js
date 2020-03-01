@@ -140,6 +140,7 @@ module.exports = {
                 ts: 'never',
                 tsx: 'never'
             }
-        ]
+        ],
+        "@typescript-eslint/explicit-function-return-type": 2
     }
 };

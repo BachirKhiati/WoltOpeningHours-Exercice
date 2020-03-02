@@ -89,56 +89,56 @@ Write a program that takes a Json as input and display the details formatted on 
 ##Json Output Formatting Info
 I tried to add comment and explaining but it better if I do it here again.
   
- - We have 2 nested loops
-_ "Days loop" => Will loop the day {
-inside we have second loop.
-_ "entries loop" => will loop current day (open/close) entries.
-}
+         - We have 2 nested loops
+        _ "Days loop" => Will loop the day {
+        inside we have second loop.
+        _ "entries loop" => will loop current day (open/close) entries.
+        }
+          
+         before these loops we have 6 initial values, they are outside because I want still save the values when going to the
+        next entries loop => next Day loop => In case the store is still open.
+          
+         -
+        isOpen Boolean => Important value, to check if the store is still open at the end of the current day.
+        updatePrevious Boolean; serves to update previous day with the "close" entry.
+        currentDayOfWeek Boolean; fetch current day as a string. compare it later with json input day.
+        openTimeValue / closeTimeValue = {}; Used to save open/close entries.
+          
+          
+         newDatesFormatArray = []; Will contain our new converted output. We will push an object containing each day
+        entries
+        date: day, - isClosed => if we have no enterie , - isToday: if that day is actually today - time: [
+        {
+            "open":{
+            "hour": 4,
+            "period":"PM"
+        },
+            "close":{
+            "hour": 11,
+            "period":"PM"
+            }
+         }
+        ],
+          
+         I decided to use this format for the opening and closing time because it is common to want to change the date
+        format between 12/24 clock convention, this will make it easier and cleaner.
   
- before these loops we have 6 initial values, they are outside because I want still save the values when going to the
-next entries loop => next Day loop => In case the store is still open.
-  
- -
-isOpen Boolean => Important value, to check if the store is still open at the end of the current day.
-updatePrevious Boolean; serves to update previous day with the "close" entry.
-currentDayOfWeek Boolean; fetch current day as a string. compare it later with json input day.
-openTimeValue / closeTimeValue = {}; Used to save open/close entries.
-  
-  
- newDatesFormatArray = []; Will contain our new converted output. We will push an object containing each day
-entries
-date: day, - isClosed => if we have no enterie , - isToday: if that day is actually today - time: [
-{
-"open":{
-"hour": 4,
-"convention":"PM"
-},
-"close":{
-"hour": 11,
-"convention":"PM"
-}
- }
-],
-  
- I decided to use this format for the opening and closing time because it is common to want to change the date
-format between 12/24 clock convention, this will make it easier and cleaner.
   
 ##Json Output Formatting Logic
-  
- - We iterate through the json's Days. - On Each day we take the the opening and closing time and convert it to 12-h convention. - if the last entry for that day was a closing time:
-_ isOpen is set to false
-_ we push an object containing the opening/closing time.
-_ done with that day. - if the last or only entry for that day was opening time:
-_ isOpen is set to true;
-_ we push an object containing the opening time only.
-_ We iterate to the next day
-_ we check that the next day first value is a closing entry.
-_ take it and update the object in the previous iteration.
-_ set updatePrevious to false,
-_ End the iteration and let it continue to the next one.
-  
- - average execution for time the current json file in .src/utils/input was around 0.27 milliseconds
-  
+ 
+        - We iterate through the json's Days. - On Each day we take the the opening and closing time and convert it to 12-h convention. - if the last entry for that day was a closing time:
+        _ isOpen is set to false
+        _ we push an object containing the opening/closing time.
+        _ done with that day. - if the last or only entry for that day was opening time:
+        _ isOpen is set to true;
+        _ we push an object containing the opening time only.
+        _ We iterate to the next day
+        _ we check that the next day first value is a closing entry.
+        _ take it and update the object in the previous iteration.
+        _ set updatePrevious to false,
+        _ End the iteration and let it continue to the next one.
+        - average execution for time the current json file in .src/utils/input was around 0.27 milliseconds
+          
   
 Running the application
 

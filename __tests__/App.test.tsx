@@ -5,7 +5,7 @@ import { render, cleanup } from '@testing-library/react-native';
 import { shallow } from 'enzyme';
 
 import App from '../src/App';
-import Item from '../src/Components/Items';
+import Item from '../src/Components/Item';
 import { json1Output, json6Output } from './json/testExpected';
 
 jest.mock('react-native-vector-icons');

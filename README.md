@@ -31,8 +31,30 @@ Write a program that takes a Json as input and display the details formatted on 
         * I was using new Date().toLocaleDateString to get currect day of the week directly.
         It does work on debug mode since it's available in Chrome v8 Engine but it's not availble yet
         in JavascriptCore engine.
+       
+   ---    
+        
+    - Update Note:
+           
+        * Transitioned Project to Typescript.
+        
+        * Setup Strict Linter rules with ESLint and Prettier
+        
+        * Updated the conversion function: more fault-proof/array checks/object key checks/ 
+                updated the logic tohandle more extreme cases like still open over Monday.
+                
+        * Set up jest/enzyme/utility tests + unit tests.
+        
+        * Pre-commit check: Formatting, Lint/Typescript check/ running unit tests.
+        
+        * End-to-End test setup and tests.
+      
+ 
 
 ---
+
+
+  **General:**
 
     - Implemented and configured Multi-Language support.
         * English
@@ -174,3 +196,23 @@ Running the application
     	    xcrun instruments -s devices
 
     	    react-native run-ios --configuration= XXXX --device "One of the devices found"
+
+
+
+Tests
+---
+
+
+  Jest/Enzyme/Unit tests.
+  
+    Run:
+        yarn test
+        
+        
+  End-to-End tests:
+    
+    Run:
+        yarn e2e:build:ios
+        yarn e2e:test:ios
+        
+        Default emulator: Iphone Xr for the test, check package.json.

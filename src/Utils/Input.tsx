@@ -1,19 +1,13 @@
-export interface JsonType {
-    monday: Day[];
-    tuesday: Day[];
-    wednesday: Day[];
-    thursday: Day[];
-    friday: Day[];
-    saturday: Day[];
-    sunday: Day[];
-}
-
-export interface Day {
-    type: string;
+export interface InputEachDayEntriesType {
     value: number;
+    type: string;
 }
 
-export const jsonInput: JsonType = {
+export interface InputJsonType {
+    [s: string]: Array<InputEachDayEntriesType>;
+}
+
+export const jsonInput: InputJsonType = {
     monday: [{ type: 'close', value: 8000 }],
     tuesday: [
         { type: 'open', value: 36000 },

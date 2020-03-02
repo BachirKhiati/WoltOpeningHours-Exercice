@@ -19,7 +19,7 @@ import I18n from 'react-native-i18n';
 
 import Chevron from './Components/Chevron';
 import { Convert, NewDatesObjectType } from './Utils/Conversion';
-import Item from './Components/Items';
+import Item from './Components/Item';
 import styles from './Styles/AppStyles';
 import Colors from './Styles/Colors';
 import { INITIAL_LANG } from './I18n/I18n';
@@ -87,7 +87,7 @@ function App(): JSX.Element {
 
     // fetch list
     useEffect(() => {
-        setList(Convert(jsonInput));
+        setList(Convert(jsonInput, -1));
     }, []);
 
     function onShowPressed(): void {
@@ -99,7 +99,7 @@ function App(): JSX.Element {
         setLanguage(LOOP_LANGUAGE[language]);
     }
 
-    if (list.length === 0) {
+    if (!list.length) {
         return (
             <View testID="ActivityIndicator" style={styles.container}>
                 <ActivityIndicator size="large" color={Colors.green} />
@@ -163,6 +163,7 @@ function App(): JSX.Element {
                 </TouchableHighlight>
             </Animated.View>
             <TouchableOpacity
+                testID="lang-button"
                 onPress={onLanguagePressed}
                 style={styles.btnFloating}
             >

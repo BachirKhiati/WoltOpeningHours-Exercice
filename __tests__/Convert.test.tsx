@@ -16,34 +16,34 @@ describe('App', () => {
 
 describe('test convention function', () => {
     it('Empty json Should return empty array', () => {
-        const response = Convert({});
+        const response = Convert({}, 0);
         expect(response).toStrictEqual([]);
     });
 
     it('should match default json- Case staying over next day.', () => {
-        const response = Convert(json1);
+        const response = Convert(json1, 0);
         expect(response).toStrictEqual(json1Output);
     });
 
     it('should match json2- input.json File- Monday case', () => {
-        const response = Convert(json2);
+        const response = Convert(json2, 0);
         expect(response.length).toEqual(7);
         expect(response).toStrictEqual(json2Output);
     });
     it('should match json3- from pdf example', () => {
-        const response = Convert(json3);
+        const response = Convert(json3, 0);
         expect(response.length).toEqual(2);
         expect(response).toStrictEqual(json3Output);
     });
 
     it('should match json4- from pdf final example', () => {
-        const response = Convert(json4);
+        const response = Convert(json4, 0);
         expect(response.length).toEqual(7);
         expect(response).toStrictEqual(json4Output);
     });
 
     it('should match json5 - all closed', () => {
-        const response = Convert(json5);
+        const response = Convert(json5, 0);
         expect(response.length).toEqual(7);
         expect(response).toStrictEqual(json5Output);
     });

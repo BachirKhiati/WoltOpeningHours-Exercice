@@ -4,7 +4,8 @@ module.exports = {
         es6: true,
         node: true,
         jest: true,
-        'react-native/react-native': true
+        'react-native/react-native': true,
+        jasmine: true
     },
     extends: [
         'airbnb',
@@ -141,6 +142,6 @@ module.exports = {
                 tsx: 'never'
             }
         ],
-        "@typescript-eslint/explicit-function-return-type": 2
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
     }
 };

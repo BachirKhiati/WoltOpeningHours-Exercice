@@ -1,11 +1,11 @@
 export const json1 = {
-    fridayz: [
+    friday: [
         {
             type: 'open',
             value: 64800
         }
     ],
-    saturdayz: [
+    saturday: [
         {
             type: 'close',
             value: 3600
@@ -13,16 +13,16 @@ export const json1 = {
     ]
 };
 export const json2 = {
-    mondayz: [{ type: 'close', value: 8000 }],
-    tuesdayz: [
+    monday: [{ type: 'close', value: 8000 }],
+    tuesday: [
         { type: 'open', value: 36000 },
         { type: 'close', value: 50800 }
     ],
-    wednesdayz: [
+    wednesday: [
         { type: 'open', value: 10 },
         { type: 'close', value: 64800 }
     ],
-    thursdayz: [
+    thursday: [
         { type: 'open', value: 5000 },
         { type: 'close', value: 19000 },
         { type: 'open', value: 30000 },
@@ -30,12 +30,12 @@ export const json2 = {
         { type: 'open', value: 66000 },
         { type: 'close', value: 86399 }
     ],
-    fridayz: [{ type: 'open', value: 36000 }],
+    friday: [{ type: 'open', value: 36000 }],
     saturday: [
         { type: 'close', value: 3600 },
         { type: 'open', value: 9000 }
     ],
-    sundayz: [
+    sunday: [
         { type: 'close', value: 25000 },
         { type: 'open', value: 20000 },
         { type: 'close', value: 60600 },
@@ -43,13 +43,13 @@ export const json2 = {
     ]
 };
 export const json3 = {
-    fridayz: [
+    friday: [
         {
             type: 'open',
             value: 64800
         }
     ],
-    saturdayz: [
+    saturday: [
         {
             type: 'close',
             value: 3600
@@ -73,33 +73,33 @@ export const json3 = {
     ]
 };
 export const json4 = {
-    mondayz: [],
-    tuesdayz: [
+    monday: [],
+    tuesday: [
         { type: 'open', value: 36000 },
         { type: 'close', value: 64800 }
     ],
-    wednesdayz: [],
-    thursdayz: [
+    wednesday: [],
+    thursday: [
         { type: 'open', value: 36000 },
         { type: 'close', value: 64800 }
     ],
-    fridayz: [{ type: 'open', value: 36000 }],
-    saturdayz: [
+    friday: [{ type: 'open', value: 36000 }],
+    saturday: [
         { type: 'close', value: 3600 },
         { type: 'open', value: 36000 }
     ],
-    sundayz: [
+    sunday: [
         { type: 'close', value: 3600 },
         { type: 'open', value: 43200 },
         { type: 'close', value: 75600 }
     ]
 };
 export const json5 = {
-    mondayz: [],
-    tuesdayz: [],
-    wednesdayz: [],
-    thursdayz: [],
-    fridayz: [],
-    saturdayz: [],
-    sundayz: []
+    monday: [],
+    tuesday: [],
+    wednesday: [],
+    thursday: [],
+    friday: [],
+    saturday: [],
+    sunday: []
 };

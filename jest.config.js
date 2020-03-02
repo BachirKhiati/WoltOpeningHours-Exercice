@@ -25,7 +25,8 @@ module.exports = {
         '\\.snap$',
         '<rootDir>/node_modules/',
         '<rootDir>/lib/',
-        '<rootDir>/__tests__/json/'
+        '<rootDir>/__tests__/json/',
+        '<rootDir>/e2e'
     ],
     setupFilesAfterEnv: ['<rootDir>/jest.setup.js']
 };

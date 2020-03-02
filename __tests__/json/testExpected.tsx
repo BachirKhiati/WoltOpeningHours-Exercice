@@ -1,6 +1,6 @@
 export const json1Output = [
     {
-        date: 'fridayz',
+        date: 'friday',
         isClosed: false,
         isToday: false,
         time: [
@@ -19,13 +19,13 @@ export const json1Output = [
 ];
 export const json2Output = [
     {
-        date: 'mondayz',
+        date: 'monday',
         isClosed: true,
-        isToday: false,
+        isToday: true,
         time: []
     },
     {
-        date: 'tuesdayz',
+        date: 'tuesday',
         isClosed: false,
         isToday: false,
         time: [
@@ -42,7 +42,7 @@ export const json2Output = [
         ]
     },
     {
-        date: 'wednesdayz',
+        date: 'wednesday',
         isClosed: false,
         isToday: false,
         time: [
@@ -59,7 +59,7 @@ export const json2Output = [
         ]
     },
     {
-        date: 'thursdayz',
+        date: 'thursday',
         isClosed: false,
         isToday: false,
         time: [
@@ -96,7 +96,7 @@ export const json2Output = [
         ]
     },
     {
-        date: 'fridayz',
+        date: 'friday',
         isClosed: false,
         isToday: false,
         time: [
@@ -130,7 +130,7 @@ export const json2Output = [
         ]
     },
     {
-        date: 'sundayz',
+        date: 'sunday',
         isClosed: false,
         isToday: false,
         time: [
@@ -159,7 +159,7 @@ export const json2Output = [
 ];
 export const json3Output = [
     {
-        date: 'fridayz',
+        date: 'friday',
         isClosed: false,
         isToday: false,
         time: [
@@ -176,7 +176,7 @@ export const json3Output = [
         ]
     },
     {
-        date: 'saturdayz',
+        date: 'saturday',
         isClosed: false,
         isToday: false,
         time: [
@@ -205,13 +205,13 @@ export const json3Output = [
 ];
 export const json4Output = [
     {
-        date: 'mondayz',
+        date: 'monday',
         isClosed: true,
-        isToday: false,
+        isToday: true,
         time: []
     },
     {
-        date: 'tuesdayz',
+        date: 'tuesday',
         isClosed: false,
         isToday: false,
         time: [
@@ -228,13 +228,13 @@ export const json4Output = [
         ]
     },
     {
-        date: 'wednesdayz',
+        date: 'wednesday',
         isClosed: true,
         isToday: false,
         time: []
     },
     {
-        date: 'thursdayz',
+        date: 'thursday',
         isClosed: false,
         isToday: false,
         time: [
@@ -251,7 +251,7 @@ export const json4Output = [
         ]
     },
     {
-        date: 'fridayz',
+        date: 'friday',
         isClosed: false,
         isToday: false,
         time: [
@@ -268,7 +268,7 @@ export const json4Output = [
         ]
     },
     {
-        date: 'saturdayz',
+        date: 'saturday',
         isClosed: false,
         isToday: false,
         time: [
@@ -285,7 +285,7 @@ export const json4Output = [
         ]
     },
     {
-        date: 'sundayz',
+        date: 'sunday',
         isClosed: false,
         isToday: false,
         time: [
@@ -304,43 +304,43 @@ export const json4Output = [
 ];
 export const json5Output = [
     {
-        date: 'mondayz',
+        date: 'monday',
+        isClosed: true,
+        isToday: true,
+        time: []
+    },
+    {
+        date: 'tuesday',
         isClosed: true,
         isToday: false,
         time: []
     },
     {
-        date: 'tuesdayz',
+        date: 'wednesday',
         isClosed: true,
         isToday: false,
         time: []
     },
     {
-        date: 'wednesdayz',
+        date: 'thursday',
         isClosed: true,
         isToday: false,
         time: []
     },
     {
-        date: 'thursdayz',
+        date: 'friday',
         isClosed: true,
         isToday: false,
         time: []
     },
     {
-        date: 'fridayz',
+        date: 'saturday',
         isClosed: true,
         isToday: false,
         time: []
     },
     {
-        date: 'saturdayz',
-        isClosed: true,
-        isToday: false,
-        time: []
-    },
-    {
-        date: 'sundayz',
+        date: 'sunday',
         isClosed: true,
         isToday: false,
         time: []
@@ -348,9 +348,9 @@ export const json5Output = [
 ];
 export const json6Output = [
     {
-        date: 'mondayz',
+        date: 'monday',
         isClosed: true,
-        isToday: false,
+        isToday: true,
         time: []
     }
 ];

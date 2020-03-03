@@ -1,4 +1,4 @@
-## Wolt exercise - React Native
+## Exercise - React Native
 
 Write a program that takes a Json as input and display the details formatted on a Card.
 

@@ -11,12 +11,12 @@ interface ItemsProps {
 }
 
 export default function Item({ item }: ItemsProps): JSX.Element {
-    const { date, time, isToday, isClosed } = item;
+    const { day, time, isToday, isClosed } = item;
     return (
         <View testID="list-item" style={styles.container}>
             <View style={styles.dateTextView}>
                 <Text testID="today" style={styles.dateText}>
-                    {I18n.t(date)}
+                    {I18n.t(day)}
                 </Text>
                 {isToday && (
                     <Text style={styles.isTodayText}>{I18n.t('today')}</Text>

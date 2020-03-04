@@ -14,7 +14,7 @@ export interface EachDayEntryType {
 }
 
 export interface NewDatesObjectType {
-    date: string;
+    day: string;
     isToday: boolean;
     time: Array<EachDayEntryType>;
     isClosed: boolean;
@@ -49,128 +49,110 @@ function initTime(): EachDayHourType {
     return { hour: 12, period: 'AM' };
 }
 
-function initEachDayEntry(): EachDayEntryType {
-    return {
-        open: initTime(),
-        close: initTime()
-    };
+function checkArrayEmpty(
+    day: string,
+    enteries: Array<InputEachDayEntriesType>
+) {
+    if ((day && !Array.isArray(enteries)) || !enteries.length) {
+        return true;
+    }
+    return false;
 }
 
-// pass a json or read the default imported;
-// using a different input for the test.
+function setStoreClosed(
+    day: string,
+    isToday: boolean,
+    result: Array<NewDatesObjectType>
+) {
+    result.push({
+        day,
+        isToday,
+        time: [],
+        isClosed: true
+    });
+    return result;
+}
+function dayLoop(
+    day: string,
+    enteries: Array<InputEachDayEntriesType>,
+    isToday: boolean,
+    result: Array<NewDatesObjectType>
+) {
+    let openTime = initTime();
+    let closeTime = initTime();
+    let eachDayTimeEntries: Array<EachDayEntryType> = [];
+    enteries.forEach(obj => {
+        if ('type' in obj && 'value' in obj) {
+            // specific check in case of empty value or invalid...
+            const isOpen = obj.type === 'open';
+            const isClose = obj.type === 'close';
+            if (isOpen) {
+                openTime = sec2time(obj.value);
+            } else if (isClose) {
+                closeTime = sec2time(obj.value);
+                eachDayTimeEntries.push({
+                    open: openTime,
+                    close: closeTime
+                });
+            }
+        }
+    });
+    result.push({
+        day,
+        isToday,
+        time: eachDayTimeEntries,
+        isClosed: false
+    });
+
+    return result;
+}
+
+function orderJson(json: Array<[string, Array<InputEachDayEntriesType>]>) {
+    const lastIndexJson = json.length - 1;
+    json.forEach(([, enteries], indexDay) => {
+        if (!Array.isArray(enteries) || !enteries.length) {
+            return;
+        }
+        const lastIndexEnteries = enteries.length - 1;
+        enteries.forEach((entry, i) => {
+            if (lastIndexEnteries === i && entry.type === 'open') {
+                if (lastIndexJson === indexDay) {
+                    const last = json[0][1][0];
+                    json[0][1].shift();
+                    json[lastIndexJson][1].push(last);
+                } else {
+                    const last = json[indexDay + 1][1][0];
+                    json[indexDay + 1][1].shift();
+                    json[indexDay][1].push(last);
+                }
+            }
+        });
+    });
+    return json;
+}
+
 export function Convert(
     input: InputJsonType,
     currentDayArg: number
 ): Array<NewDatesObjectType> {
-    const json: Array<[
-        string,
-        Array<InputEachDayEntriesType>
-    ]> = Object.entries(input);
-    // final output
-    let result: Array<NewDatesObjectType> = [];
-
-    // initials
-    let potentialNextDay: EachDayEntryType = initEachDayEntry();
-
-    // case store still from Sunday to Monday
-    let wasStillOpenTillMonday = false;
-    let mondayPotentialEntry: EachDayEntryType = initEachDayEntry();
-    const weekLastIndex = json.length - 1;
-
+    let res: Array<NewDatesObjectType> = [];
+    let json: Array<[string, Array<InputEachDayEntriesType>]> = Object.entries(
+        input
+    );
     let currentDayOfWeek = dayOfWeekAsString(
         currentDayArg || new Date().getDay()
     );
-
-    // used when iterating between days
-    let isStillOpen = false;
-
-    // iterate days
-    json.forEach(
-        (
-            [day, entriesArray]: [string, Array<InputEachDayEntriesType>],
-            dayIndex: number
-        ) => {
-            // check in case array is invalid or empty
-            if (!Array.isArray(entriesArray) || !entriesArray.length) {
-                day &&
-                    result.push({
-                        date: day,
-                        isToday: currentDayOfWeek === day,
-                        time: [],
-                        isClosed: true
-                    });
-                return;
-            }
-
-            const lastEntryIndex = entriesArray.length - 1;
-            let eachDayTimeEntries: Array<EachDayEntryType> = [];
-            let openTime = initTime();
-            let closeTime = initTime();
-
-            // iterate entries of each day
-            entriesArray.forEach((obj, entryIndex) => {
-                if ('type' in obj && 'value' in obj) {
-                    // specific check in case of empty value or invalid...
-                    const isOpen = obj.type === 'open';
-                    const isClose = obj.type === 'close';
-
-                    // Monday Check
-                    if (dayIndex === 0 && entryIndex === 0 && isClose) {
-                        wasStillOpenTillMonday = true;
-                        mondayPotentialEntry.close = sec2time(obj.value);
-                        return;
-                    }
-                    // push previous day saved data + the missing close from the next day.
-                    if (isStillOpen && entryIndex === 0 && isClose) {
-                        potentialNextDay.close = sec2time(obj.value);
-                        result[result.length - 1].isClosed = false;
-                        result[result.length - 1].time.push(potentialNextDay);
-                        return;
-                    }
-
-                    if (isOpen) {
-                        openTime = sec2time(obj.value);
-                    } else if (isClose) {
-                        closeTime = sec2time(obj.value);
-                        eachDayTimeEntries.push({
-                            open: openTime,
-                            close: closeTime
-                        });
-                    }
-
-                    if (isOpen && entryIndex === lastEntryIndex) {
-                        isStillOpen = true;
-                        potentialNextDay = {
-                            open: openTime,
-                            close: initTime()
-                        };
-                    } else if (isClose && entryIndex === lastEntryIndex) {
-                        isStillOpen = false;
-                    }
-                }
-            });
-
-            const checkEntries = eachDayTimeEntries.length > 0;
-            const dayEntry = {
-                date: day,
-                isToday: currentDayOfWeek === day,
-                time: eachDayTimeEntries,
-                isClosed: !checkEntries
-            };
-
-            // normal entry- close same day
-            if (!isStillOpen) {
-                result.push(dayEntry);
-            } else if (wasStillOpenTillMonday && weekLastIndex === dayIndex) {
-                // Still open till Monday
-                potentialNextDay.close = mondayPotentialEntry.close;
-                dayEntry.time.push(potentialNextDay);
-                dayEntry.isClosed = false;
-                result.push(dayEntry);
-            } else if (weekLastIndex !== dayIndex) {
-                result.push(dayEntry);
-            }
+    // refactor Json
+    json = orderJson(json);
+    json.forEach(([day, enteries]) => {
+        const isToday = currentDayOfWeek === day;
+        if (!checkArrayEmpty(day, enteries)) {
+            res = dayLoop(day, enteries, isToday, res);
+        } else {
+            res = setStoreClosed(day, isToday, res);
         }
-    );
-    return result;
+    });
+    console.log('res');
+    console.log(res);
+    return res;
 }

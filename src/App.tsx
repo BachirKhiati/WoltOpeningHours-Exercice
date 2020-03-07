@@ -87,7 +87,7 @@ function App(): JSX.Element {
 
     // fetch list
     useEffect(() => {
-        setList(Convert(jsonInput, -1));
+        setList(Convert(jsonInput));
     }, []);
 
     function onShowPressed(): void {

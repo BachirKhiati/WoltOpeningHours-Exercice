@@ -4,25 +4,23 @@ Write a program that takes a Json as input and display the details formatted on 
 
 ## Extra Libraries added
 
-- Animation mainly:
+-   Animation mainly:
 
-        "react-native-reanimated"
+          "react-native-reanimated"
 
-        "react-native-redash"
+          "react-native-redash"
 
-         "react-native-gesture-handler"
+           "react-native-gesture-handler"
 
+*   Icons:
 
-- Icons:
+         "react-native-vector-icons"
 
-       "react-native-vector-icons"
+-   Language:
 
+         "react-native-i18n"
 
-- Language:
-
-       "react-native-i18n"
-
-  - Note: Original repo is "Deprecated", I'm using my updated branch.
+    -   Note: Original repo is "Deprecated", I'm using my updated branch.
 
 ## Application Details
 
@@ -31,30 +29,29 @@ Write a program that takes a Json as input and display the details formatted on 
         * I was using new Date().toLocaleDateString to get currect day of the week directly.
         It does work on debug mode since it's available in Chrome v8 Engine but it's not availble yet
         in JavascriptCore engine.
-       
-   ---    
-        
-    - Update Note:
-           
-        * Transitioned Project to Typescript.
-        
-        * Setup Strict Linter rules with ESLint and Prettier
-        
-        * Updated the conversion function: more fault-proof/array checks/object key checks/ 
-                updated the logic tohandle more extreme cases like still open over Monday.
-                
-        * Set up jest/enzyme/utility tests + unit tests.
-        
-        * Pre-commit check: Formatting, Lint/Typescript check/ running unit tests.
-        
-        * End-to-End test setup and tests.
-      
- 
+
 
 ---
 
+    - Update Note:
 
-  **General:**
+        * Transitioned Project to Typescript.
+
+        * Setup Strict Linter rules with ESLint and Prettier
+
+        * Updated the conversion function: more fault-proof/array checks/object key checks/
+                updated the logic tohandle more extreme cases like still open over Monday.
+
+        * Set up jest/enzyme/utility tests + unit tests.
+
+        * Pre-commit check: Formatting, Lint/Typescript check/ running unit tests.
+
+        * End-to-End test setup and tests.
+
+
+---
+
+**General:**
 
     - Implemented and configured Multi-Language support.
         * English
@@ -88,23 +85,23 @@ Write a program that takes a Json as input and display the details formatted on 
 
 ##Json Output Formatting Info
 I tried to add comment and explaining but it better if I do it here again.
-  
+
          - We have 2 nested loops
         _ "Days loop" => Will loop the day {
         inside we have second loop.
         _ "entries loop" => will loop current day (open/close) entries.
         }
-          
+
          before these loops we have 6 initial values, they are outside because I want still save the values when going to the
         next entries loop => next Day loop => In case the store is still open.
-          
+
          -
         isOpen Boolean => Important value, to check if the store is still open at the end of the current day.
         updatePrevious Boolean; serves to update previous day with the "close" entry.
         currentDayOfWeek Boolean; fetch current day as a string. compare it later with json input day.
         openTimeValue / closeTimeValue = {}; Used to save open/close entries.
-          
-          
+
+
          newDatesFormatArray = []; Will contain our new converted output. We will push an object containing each day
         entries
         date: day, - isClosed => if we have no enterie , - isToday: if that day is actually today - time: [
@@ -119,37 +116,21 @@ I tried to add comment and explaining but it better if I do it here again.
             }
          }
         ],
-          
+
          I decided to use this format for the opening and closing time because it is common to want to change the date
         format between 12/24 clock convention, this will make it easier and cleaner.
-  
-  
-##Json Output Formatting Logic
- 
-        - We iterate through the json's Days. - On Each day we take the the opening and closing time and convert it to 12-h convention. - if the last entry for that day was a closing time:
-        _ isOpen is set to false
-        _ we push an object containing the opening/closing time.
-        _ done with that day. - if the last or only entry for that day was opening time:
-        _ isOpen is set to true;
-        _ we push an object containing the opening time only.
-        _ We iterate to the next day
-        _ we check that the next day first value is a closing entry.
-        _ take it and update the object in the previous iteration.
-        _ set updatePrevious to false,
-        _ End the iteration and let it continue to the next one.
-        - average execution for time the current json file in .src/utils/input was around 0.27 milliseconds
-          
-  
+
+##Json Output Formatting Logic - Lookuo stores that are still open overnight. - Refactoring values found to the corresponding previous day,(monday case also) so that the last entry of is day is a close time. - We iterate through the json's Days. - On Each day we convert the opening and closing time to 12-h convention. - average execution for time the current json file in .src/utils/input was around 0.27 milliseconds
+
 Running the application
 
 ---
 
 1- Similar to most react-project:
 
-- Installing the nodules
+-   Installing the nodules
 
-        yarn install
-
+          yarn install
 
 2. We have 2 releases for each platform:
 
@@ -197,22 +178,19 @@ Running the application
 
     	    react-native run-ios --configuration= XXXX --device "One of the devices found"
 
+## Tests
 
+Jest/Enzyme/Unit tests.
 
-Tests
----
-
-
-  Jest/Enzyme/Unit tests.
-  
     Run:
         yarn test
-        
-        
-  End-to-End tests:
-    
-    Run:
-        yarn e2e:build:ios
-        yarn e2e:test:ios
-        
-        Default emulator: Iphone Xr for the test, check package.json.
+
+
+
+End-to-End tests:
+  
+ Run:
+yarn e2e:build:ios
+yarn e2e:test:ios
+  
+ Default emulator: Iphone Xr for the test, check package.json.

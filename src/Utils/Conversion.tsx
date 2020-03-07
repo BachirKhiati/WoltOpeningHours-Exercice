@@ -49,39 +49,40 @@ function initTime(): EachDayHourType {
     return { hour: 12, period: 'AM' };
 }
 
-function checkArrayEmpty(
-    day: string,
-    enteries: Array<InputEachDayEntriesType>
-) {
-    if ((day && !Array.isArray(enteries)) || !enteries.length) {
+function checkArrayEmpty(day: string, entries: Array<InputEachDayEntriesType>) {
+    if ((day && !Array.isArray(entries)) || !entries.length) {
         return true;
     }
     return false;
 }
 
-function setStoreClosed(
-    day: string,
-    isToday: boolean,
-    result: Array<NewDatesObjectType>
-) {
-    result.push({
+function setStoreClosed(day: string, isToday: boolean) {
+    return {
         day,
         isToday,
         time: [],
         isClosed: true
-    });
-    return result;
+    };
 }
-function dayLoop(
+
+function setStoreData(
     day: string,
-    enteries: Array<InputEachDayEntriesType>,
     isToday: boolean,
-    result: Array<NewDatesObjectType>
+    entries: Array<EachDayEntryType>,
+    isClosed: boolean
 ) {
+    return {
+        day,
+        isToday,
+        time: entries,
+        isClosed
+    };
+}
+function dayLoop(entries: Array<InputEachDayEntriesType>) {
     let openTime = initTime();
     let closeTime = initTime();
     let eachDayTimeEntries: Array<EachDayEntryType> = [];
-    enteries.forEach(obj => {
+    entries.forEach(obj => {
         if ('type' in obj && 'value' in obj) {
             // specific check in case of empty value or invalid...
             const isOpen = obj.type === 'open';
@@ -97,25 +98,19 @@ function dayLoop(
             }
         }
     });
-    result.push({
-        day,
-        isToday,
-        time: eachDayTimeEntries,
-        isClosed: false
-    });
 
-    return result;
+    return eachDayTimeEntries;
 }
 
 function orderJson(json: Array<[string, Array<InputEachDayEntriesType>]>) {
     const lastIndexJson = json.length - 1;
-    json.forEach(([, enteries], indexDay) => {
-        if (!Array.isArray(enteries) || !enteries.length) {
+    json.forEach(([, entries], indexDay) => {
+        if (!Array.isArray(entries) || !entries.length) {
             return;
         }
-        const lastIndexEnteries = enteries.length - 1;
-        enteries.forEach((entry, i) => {
-            if (lastIndexEnteries === i && entry.type === 'open') {
+        const lastIndexEntries = entries.length - 1;
+        entries.forEach((entry, i) => {
+            if (lastIndexEntries === i && entry.type === 'open') {
                 if (lastIndexJson === indexDay) {
                     const last = json[0][1][0];
                     json[0][1].shift();
@@ -133,9 +128,8 @@ function orderJson(json: Array<[string, Array<InputEachDayEntriesType>]>) {
 
 export function Convert(
     input: InputJsonType,
-    currentDayArg: number
+    currentDayArg?: number
 ): Array<NewDatesObjectType> {
-    let res: Array<NewDatesObjectType> = [];
     let json: Array<[string, Array<InputEachDayEntriesType>]> = Object.entries(
         input
     );
@@ -144,15 +138,12 @@ export function Convert(
     );
     // refactor Json
     json = orderJson(json);
-    json.forEach(([day, enteries]) => {
+    const res: Array<NewDatesObjectType> = json.map(([day, entries]) => {
         const isToday = currentDayOfWeek === day;
-        if (!checkArrayEmpty(day, enteries)) {
-            res = dayLoop(day, enteries, isToday, res);
-        } else {
-            res = setStoreClosed(day, isToday, res);
+        if (!checkArrayEmpty(day, entries)) {
+            return setStoreData(day, isToday, dayLoop(entries), false);
         }
+        return setStoreClosed(day, isToday);
     });
-    console.log('res');
-    console.log(res);
     return res;
 }

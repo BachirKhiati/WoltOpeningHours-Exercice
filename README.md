@@ -83,44 +83,14 @@ Write a program that takes a Json as input and display the details formatted on 
 
     - Designed so that the start/closing time, starts and ends on the same line, more visually pleasing.
 
-##Json Output Formatting Info
-I tried to add comment and explaining but it better if I do it here again.
-
-         - We have 2 nested loops
-        _ "Days loop" => Will loop the day {
-        inside we have second loop.
-        _ "entries loop" => will loop current day (open/close) entries.
-        }
-
-         before these loops we have 6 initial values, they are outside because I want still save the values when going to the
-        next entries loop => next Day loop => In case the store is still open.
-
-         -
-        isOpen Boolean => Important value, to check if the store is still open at the end of the current day.
-        updatePrevious Boolean; serves to update previous day with the "close" entry.
-        currentDayOfWeek Boolean; fetch current day as a string. compare it later with json input day.
-        openTimeValue / closeTimeValue = {}; Used to save open/close entries.
 
 
-         newDatesFormatArray = []; Will contain our new converted output. We will push an object containing each day
-        entries
-        date: day, - isClosed => if we have no enterie , - isToday: if that day is actually today - time: [
-        {
-            "open":{
-            "hour": 4,
-            "period":"PM"
-        },
-            "close":{
-            "hour": 11,
-            "period":"PM"
-            }
-         }
-        ],
+##Json Output Formatting Logic 
 
-         I decided to use this format for the opening and closing time because it is common to want to change the date
-        format between 12/24 clock convention, this will make it easier and cleaner.
-
-##Json Output Formatting Logic - Lookuo stores that are still open overnight. - Refactoring values found to the corresponding previous day,(monday case also) so that the last entry of is day is a close time. - We iterate through the json's Days. - On Each day we convert the opening and closing time to 12-h convention. - average execution for time the current json file in .src/utils/input was around 0.27 milliseconds
+          - Look up stores that are still open overnight. 
+          - Refactoring values found to the corresponding previous day,(monday case also) so that the last entry od each day is a close time. 
+          - We iterate through the json's Days. - On Each day we convert the opening and closing time to 12-h convention. 
+          - average execution for time the current json file in .src/utils/input was around 0.27 milliseconds
 
 Running the application
 

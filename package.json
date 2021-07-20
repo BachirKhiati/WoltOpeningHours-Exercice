@@ -24,7 +24,7 @@
     "dependencies": {
         "@typescript-eslint/eslint-plugin": "^2.21.0",
         "react": "16.9.0",
-        "react-native": "0.61.5",
+        "react-native": "0.62.3",
         "react-native-gesture-handler": "git://github.com/tobiasbu/react-native-gesture-handler.git#fix/gesture-handler-root-view-ts",
         "react-native-i18n": "git+https://8b49152fce04fec7b5535756ddccc3e9e74d4283:x-oauth-basic@github.com/BachirKhiati/react-native-i18n",
         "react-native-reanimated": "git+https://github.com/software-mansion/react-native-reanimated.git",
